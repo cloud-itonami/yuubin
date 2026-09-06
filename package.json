@@ -1,0 +1,12 @@
+{
+  "name": "yuubin",
+  "version": "1.0.0",
+  "description": "日本郵便 Web ゆうびん / e内容証明 / レターパック自動投函 AI エージェント (appview UI: shadow-cljs + reagent + kotoba-ui)",
+  "main": "index.js",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
