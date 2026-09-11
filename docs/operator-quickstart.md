@@ -83,7 +83,7 @@ Packages found in the workspace:
 このワークスペース全体を検索しても出てこない:
 
 ```bash
-nbb scripts/repo-search.cljs kotodama host-sdk   # superproject から。該当パッケージ無し
+kbb --backend sci scripts/repo-search.cljk kotodama host-sdk   # superproject から。該当パッケージ無し
 ```
 
 **`src/app.ts` を型検査・実行・bundle する経路は、clean clone には存在しない。**
