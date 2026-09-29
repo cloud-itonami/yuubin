@@ -4,7 +4,7 @@
 司法・行政文書を、日本郵便の **Web ゆうびん** から自前で投函するために起こされた actor
 である。`fax`（新件申立書は FAX 不可）と `mailer`（電子メール）の間を埋める位置に居る。
 
-**この README が先に言っておくこと** — 名前と `CLAUDE.md` は「投函する actor」を指すが、
+**この README が先に言っておくこと** — 名前と `AGENTS.md` は「投函する actor」を指すが、
 **この repo が今日その動作をすることはない。**
 
 | | |
@@ -34,19 +34,19 @@ etzhayyim-wasm-yuubin-y00b1nx9/
   └── svelte/           **配信されるのはこちら。** proxy 1 本と scaffold ランディング
 ```
 
-`CLAUDE.md` は 2026-04 時点の設計と現地調査を記録した文書で、**今の artifact の記述では
+`AGENTS.md` は 2026-04 時点の設計と現地調査を記録した文書で、**今の artifact の記述では
 ない**。特に XRPC 表と Bindings 表は、`wrangler.jsonc` と build 出力に一致しない
 （差分は quickstart §4 に表で置いた）。歴史的記録として読み、動作の根拠にしない。
 
 ## この actor の一番重要な調査結果
 
-`CLAUDE.md` の ⚠CRITICAL 節が本体である: **Web ゆうびん の自動投函は 2026-04-20 に断念
+`AGENTS.md` の ⚠CRITICAL 節が本体である: **Web ゆうびん の自動投函は 2026-04-20 に断念
 された。** F5 BIG-IP ASM が puppeteer の fingerprint を検出して login POST を静かに
 拒否し（HTTP 200 + top page が返る）、ファイル添付が ThickBox iframe 内の同期 XHR で
 行われるため CDP `Runtime.evaluate` が 45 秒超で timeout する（real Chrome でも固まるので
 CF Browser Rendering 固有ではない）。
 
-したがって残った価値は**前処理**であり、`CLAUDE.md` もそう書いている。quickstart §6 は
+したがって残った価値は**前処理**であり、`AGENTS.md` もそう書いている。quickstart §6 は
 その主張を検証して、**片方は本当・片方は欠陥がある**と結論した:
 
 - `normalizeDocxToA4` / `normalize-a4-docx.sh` — **本当に動く。** pandoc 3.8.3 の .docx は

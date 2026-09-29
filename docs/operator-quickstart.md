@@ -12,7 +12,7 @@ pandoc 3.8.3 / Ghostscript）。確認していないものは §7 に分けて�
 
 ## 0. 最初に読むこと — この actor は今どこにも居ない
 
-`CLAUDE.md` は `https://yuubin.etzhayyim.com/xrpc/…` に POST する手順を書いているが、
+`AGENTS.md` は `https://yuubin.etzhayyim.com/xrpc/…` に POST する手順を書いているが、
 **そのホストは DNS に存在しない。** 3 つのリゾルバで確かめた:
 
 ```bash
@@ -32,7 +32,7 @@ apex だけが応答する。**サブドメイン 3 つは空**（ローカル r
 `curl` は 200 でも 404 でもなく `curl: (6) Could not resolve host` で終わる。
 
 つまり **§3 の XRPC 呼び出しは、この repo をどう直しても今日は通らない。** 動かしたければ
-まず deploy が要る（§5）。それより先に、**deploy しても何が動くのかが `CLAUDE.md` の記述と
+まず deploy が要る（§5）。それより先に、**deploy しても何が動くのかが `AGENTS.md` の記述と
 違う**ことを知っておく必要がある（§4）。
 
 いま操作可能なのは **§6 のローカル前処理だけ**である。
@@ -47,7 +47,7 @@ cd yuubin
 ```
 
 west 管理下なら `orgs/cloud-itonami/yuubin`。共有 checkout を直接編集せず worktree を
-切ること（superproject の CLAUDE.md「並行エージェント運用」）。
+切ること（superproject の AGENTS.md「並行エージェント運用」）。
 
 ツリーは 19 ファイル。**入口は 2 つあり、片方は build されない**:
 
@@ -87,7 +87,7 @@ kbb --backend sci scripts/repo-search.cljk kotodama host-sdk   # superproject �
 ```
 
 **`src/app.ts` を型検査・実行・bundle する経路は、clean clone には存在しない。**
-`CLAUDE.md` §Bootstrap Steps の `pnpm install` はここで止まる。
+`AGENTS.md` §Bootstrap Steps の `pnpm install` はここで止まる。
 
 ### 2.2 `svelte/` は素で通る
 
@@ -137,7 +137,7 @@ env.APP_CAPABILITIES              Environment Variable
 
 （gzip 値は build ごとに数十バイト動く。2 回の walk で 94.79 / 94.78 KiB。）
 
-**bindings は `ASSETS` と vars だけ。** `CLAUDE.md` の Bindings 表が挙げる
+**bindings は `ASSETS` と vars だけ。** `AGENTS.md` の Bindings 表が挙げる
 `HEADLESS_BROWSER`（browser）/ `B2_KEY_ID`・`B2_APPLICATION_KEY`（b2）/ `HYPERDRIVE` /
 `PDS_SERVICE`・`PDS_RPC`（service）/ `SS_WEBYUBIN_*`（secret）は **`wrangler.jsonc` に
 1 つも無い**。表は現行 manifest を記述していない。
@@ -232,7 +232,7 @@ router が持っているかどうかは**この repo の外の問題**。router
 `patch-worker.mjs` も同じ向きの証拠で、`YuubinPostDO` に **410 Gone** を返す stub を
 足している（本文: `"YuubinPostDO has moved behind the agentgateway MCP router"`）。
 
-| `CLAUDE.md` が書いていること | 実際 |
+| `AGENTS.md` が書いていること | 実際 |
 |---|---|
 | XRPC 4 種を yuubin が実行する | NSID を MCP router へ転送するだけ |
 | Bindings 表（browser / b2 / hyperdrive / service / secret） | `wrangler.jsonc` に無い。ASSETS + vars のみ |
@@ -249,7 +249,7 @@ router が持っているかどうかは**この repo の外の問題**。router
    （`wrangler.jsonc` の `routes` は `zone_name: etzhayyim.com` の 2 パターンを要求する）
 2. **MCP router** — `mcp.etzhayyim.com` が無い。deploy しても全 XRPC が §3 の 500 になる
 3. **Cloudflare account / zone 権限** — `etzhayyim.com` zone への route 登録
-4. `CLAUDE.md` §Bootstrap 2–3 の Web ゆうびん 認証情報。ただし **§4 のとおり、
+4. `AGENTS.md` §Bootstrap 2–3 の Web ゆうびん 認証情報。ただし **§4 のとおり、
    認証情報を消費するコードは deploy 対象に入っていない**ので、これは今の manifest では
    deploy の前提条件ではない
 
@@ -261,7 +261,7 @@ deny する。§2.3 は dry-run なのでガードに触れない。
 
 ## 6. 今日そのまま使えるもの — A4 前処理
 
-`CLAUDE.md` は「preprocessing として他 actor でも使える」と書いており、**これは本当**。
+`AGENTS.md` は「preprocessing として他 actor でも使える」と書いており、**これは本当**。
 ただし XRPC 経由ではなく、**ローカルで**である。
 
 ### 6.1 なぜ要るか
@@ -277,7 +277,7 @@ python3 -c "print(round(210/25.4*1440,1), round(297/25.4*1440,1))"
 
 コードの定数 `w:w="11906" w:h="16838"` はこれと一致する。
 
-そして **pandoc 3.8.3 の .docx は `w:pgSz` を 1 つも持たない**（`CLAUDE.md` は
+そして **pandoc 3.8.3 の .docx は `w:pgSz` を 1 つも持たない**（`AGENTS.md` は
 「pandoc 既定は US Letter」と書くが、実際は *page size が宣言されない*）:
 
 ```bash
@@ -352,7 +352,7 @@ LC_ALL=C grep -ao '/MediaBox[^]]*]' /tmp/flat.pdf | head -1
 
 ## 7. 確認していないこと
 
-- **投函そのもの**。`CLAUDE.md` の ⚠CRITICAL（F5 BIG-IP ASM が puppeteer を弾き、
+- **投函そのもの**。`AGENTS.md` の ⚠CRITICAL（F5 BIG-IP ASM が puppeteer を弾き、
   ThickBox iframe の同期 XHR で CDP が固まる）は 2026-04-20 の記録で、**再現していない**。
   §4 のとおりその経路は deploy 対象に無いので、この repo の状態からは再現できない。
 - **`src/app.ts` の残り 90%**（`composeAndPost` / `submitNaiyoShomei` /
@@ -368,7 +368,7 @@ LC_ALL=C grep -ao '/MediaBox[^]]*]' /tmp/flat.pdf | head -1
 
 ## 8. 直すなら、どれから
 
-1. **`docs` と実体を合わせる** — `CLAUDE.md` の XRPC 表と Bindings 表は、deploy される
+1. **`docs` と実体を合わせる** — `AGENTS.md` の XRPC 表と Bindings 表は、deploy される
    artifact を記述していない（§4）。読む人が最初に踏む。
 2. **`+server.ts` の upstream fetch を catch する**（§3）。DNS で落ちたとき 500
    `Internal Error` ではなく理由を返す。1 箇所。
